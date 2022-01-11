@@ -1,1 +1,56 @@
+Cover "Search Breweries"  method by extra test cases
+
+TC #6 
+Try to provide search by more than one params  For example: https://api.openbrewerydb.org/breweries/search?query=dog&query=cat
+
+Cover "List Breweries" method by test cases 
+
+TC #1 
+Check that filter works correctly for all params that is possible to filter on:
+by_city ; by_dist; by_name; by_state; by_postal; by_type
+
+Expected result:System should return only that list of existing Breweries that filtered by value of applied filter type
+
+TC#2 
+Check that system correctly process invalid filter type that applied and valid value that existing in the system for any filter type 
+Use invalid filter type For example "by_whether" and pass valid value (For example value for "name" param
+Exp Result : System should return nothing
+
+TC#3 
+Check that system correctly process invalid value for valid filter type e 
+Pass invalid value for "name" param For example- "###"
+Exp Result : System should return nothing
+
+TC#4 
+
+Pass any SQL injection as value for any filter type 
+Exp Result: System should correctly process queries like this and return nothing
+
+TC #5 
+
+Check how the system process query with two and more filter types with value
+
+Pass in the query : https://api.openbrewerydb.org/breweries?by_city=san_diego&by_name=cooper
+Exp Result: The system should return breweries where city is "San_Diego" AND name is "cooper"
+
+TC#6 
+Check pagination Pass number of page.  "?page=15". Check that list of breweries is opened on 15 page
+
+TC#7 
+Check Sorting works correctly asc/desc by one or more fields
+
+TC#8 
+Check number of Breweries that returned on each page 
+Check that default value for "per_page' is 25. Check that nax value of Breweries on age can be 50. Check boundary values
+
+
+How it can be automated:
+
+1.Need to create enum class "FilterTypes"  where write all filter Types 
+2.Create class "FlterData" with two fields for filter type and value for this type. Add @Build annotation Thet give as posssibility to build filter type with value in Test
+3.Create class  with method "listBreweriesFilterd" whith argument with Type "FilterDatat" From this argument we take filter type and filter value assign it for two verieables and concatinate (or use String.format) with main endpoint
+4. In test class build FilterData and pass to "listBreweriesFilterd" method
+
+This effort will take approximately one day for me 
+
 
